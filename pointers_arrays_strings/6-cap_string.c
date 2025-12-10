@@ -9,6 +9,7 @@
 char *cap_string(char *str)
 {
 	int i = 0;
+	int j;
 	int capitalize_next = 1;
 	char separators[] = " \t\n,;.!?\"(){}";
 
@@ -21,13 +22,11 @@ char *cap_string(char *str)
 		}
 		else if (!capitalize_next && str[i] >= 'A' && str[i] <= 'Z')
 		{
-			/* Convert to lowercase if not at start of word */
 			str[i] += 'a' - 'A';
 		}
 
-		/* Check if current character is a separator */
 		capitalize_next = 0;
-		for (int j = 0; separators[j] != '\0'; j++)
+		for (j = 0; separators[j] != '\0'; j++)
 		{
 			if (str[i] == separators[j])
 			{
@@ -41,3 +40,4 @@ char *cap_string(char *str)
 
 	return (str);
 }
+
