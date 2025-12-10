@@ -1,24 +1,22 @@
 #include "main.h"
-#include <stddef.h> /* for NULL */
 
 /**
- * _strchr - locates a character in a string
- * @s: the string to search
- * @c: the character to find
+ * _strncpy - copies a string
+ * @dest: destination buffer
+ * @src: source string
+ * @n: maximum number of bytes to copy
  *
- * Return: pointer to the first occurrence of c in s, or NULL if not found
+ * Return: pointer to dest
  */
-char *_strchr(char *s, char c)
+char *_strncpy(char *dest, char *src, int n)
 {
-	while (*s)
-	{
-		if (*s == c)
-			return (s);
-		s++;
-	}
+	int i;
 
-	if (*s == c) /* check for terminating null byte */
-		return (s);
+	for (i = 0; i < n && src[i] != '\0'; i++)
+		dest[i] = src[i];
 
-	return (NULL);
+	for (; i < n; i++)
+		dest[i] = '\0';
+
+	return (dest);
 }
