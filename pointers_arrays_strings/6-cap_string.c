@@ -18,13 +18,9 @@ char *cap_string(char *str)
 		if (capitalize_next && str[i] >= 'a' && str[i] <= 'z')
 		{
 			str[i] -= 'a' - 'A';
-			capitalize_next = 0;
-		}
-		else if (!capitalize_next && str[i] >= 'A' && str[i] <= 'Z')
-		{
-			str[i] += 'a' - 'A';
 		}
 
+		/* Check if current character is a separator */
 		capitalize_next = 0;
 		for (j = 0; separators[j] != '\0'; j++)
 		{
