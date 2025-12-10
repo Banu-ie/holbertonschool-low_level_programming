@@ -23,5 +23,5 @@ char *cap_string(char *str);
 
 #endif /* MAIN_H */
 
-6-cap_string.c
+
 
