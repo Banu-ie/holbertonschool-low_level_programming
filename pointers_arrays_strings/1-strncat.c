@@ -1,24 +1,29 @@
 #include "main.h"
-#include <stddef.h> /* for NULL */
 
 /**
- * _strchr - locates a character in a string
- * @s: the string to search
- * @c: the character to find
+ * _strncat - concatenates two strings using at most n bytes from src
+ * @dest: destination string
+ * @src: source string
+ * @n: number of bytes to append
  *
- * Return: pointer to the first occurrence of c in s, or NULL if not found
+ * Return: pointer to dest
  */
-char *_strchr(char *s, char c)
+char *_strncat(char *dest, char *src, int n)
 {
-	while (*s)
+	int i = 0;
+	int j = 0;
+
+	while (dest[i] != '\0')
+		i++;
+
+	while (j < n && src[j] != '\0')
 	{
-		if (*s == c)
-			return (s);
-		s++;
+		dest[i] = src[j];
+		i++;
+		j++;
 	}
 
-	if (*s == c) /* check for terminating null byte */
-		return (s);
+	dest[i] = '\0';
 
-	return (NULL);
+	return (dest);
 }
