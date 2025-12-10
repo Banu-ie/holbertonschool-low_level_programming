@@ -9,15 +9,15 @@
  */
 char *_strchr(char *s, char c)
 {
-    while (*s)
-    {
-        if (*s == c)
-            return (s);
-        s++;
-    }
+	while (*s)
+	{
+		if (*s == c)
+			return (s);
+		s++;
+	}
 
-    if (*s == c) /* check for terminating null byte */
-        return (s);
+	if (*s == c)
+		return (s);
 
-    return (0);
+	return (0);
 }
