@@ -1,26 +1,34 @@
 #include "main.h"
 
 /**
- * _sqrt_helper - finds the natural square root recursively
- * @n: number to find square root of
- * @guess: current guess
+ * _sqrt_helper - recursive function to find the natural square root
+ * @n: number to find the square root of
+ * @guess: current guess to test
  *
- * Return: natural square root of n, -1 if none
+ * Return: natural square root of n, or -1 if none
  */
 int _sqrt_helper(int n, int guess)
 {
-	if (guess * guess == n) /* Found the square root */
+	if (guess * guess == n)
 		return (guess);
-	if (guess * guess > n) /* Exceeded n, no natural square root */
+	if (guess * guess > n)
 		return (-1);
 
-	return (_sqrt_helper(n, guess + 1)); /* Try next number */
+	return (_sqrt_helper(n, guess + 1));
 }
 
 /**
  * _sqrt_recursion - returns the natural square root of a number
- * @n: number to find square root of
+ * @n: number to find the square root of
  *
- * Return: natural square root of n, -1 if none
- *
- * Description: Uses recursion to find the na*
+ * Return: natural square root of n, or -1 if none
+ */
+int _sqrt_recursion(int n)
+{
+	if (n < 0)
+		return (-1);
+	if (n == 0 || n == 1)
+		return (n);
+
+	return (_sqrt_helper(n, 1));
+}
