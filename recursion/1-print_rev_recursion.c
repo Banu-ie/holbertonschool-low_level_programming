@@ -4,18 +4,14 @@
  * _print_rev_recursion - prints a string in reverse
  * @s: string to print
  *
- * Description: This function uses recursion to print each character
- * of the string starting from the last character back to the first.
+ * Description: Uses recursion to print each character
+ * from the last to the first.
  */
 void _print_rev_recursion(char *s)
 {
-    /* Base case: stop recursion at the end of the string */
-    if (*s == '\0')
-        return;
+	if (*s == '\0') /* Base case: end of string */
+		return;
 
-    /* Recursive call: go to the next character first */
-    _print_rev_recursion(s + 1);
-
-    /* Print the current character after returning from recursion */
-    _putchar(*s);
+	_print_rev_recursion(s + 1); /* Recursive call for next character */
+	_putchar(*s); /* Print current character after recursion */
 }
