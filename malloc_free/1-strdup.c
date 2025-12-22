@@ -3,27 +3,26 @@
 
 char *_strdup(char *str)
 {
-    char *dup;
-    unsigned int i, len;
-    
-    if (str == NULL)
-        return(NULL);
+	char *dup;
+	unsigned int i, len;
 
-    len = 0;
-    while(str[len] != '\0')
-        len++;
+	if (str == NULL)
+		return (NULL);
 
-    dup =  malloc(sizeof(char) * (len + 1));
-    if (dup == NULL)
-        return(NULL);
+	len = 0;
+	while (str[len] != '\0')
+		len++;
 
-    i = 0;
-    while(i <= len)
-    {
-        dup [i] = str[i];
-        i++;
-    }
+	dup = malloc(sizeof(char) * (len + 1));
+	if (dup == NULL)
+		return (NULL);
 
-    return(dup);
+	i = 0;
+	while (i <= len)
+	{
+		dup[i] = str[i];
+		i++;
+	}
+
+	return (dup);
 }
-
