@@ -15,6 +15,11 @@ struct dog
 };
 
 /**
+ * dog_t - typedef for struct dog
+ */
+typedef struct dog dog_t;
+
+/**
  * init_dog - initializes a variable of type struct dog
  * @d: pointer to struct dog
  * @name: name of the dog
@@ -38,10 +43,5 @@ void print_dog(struct dog *d);
  * Return: pointer to new dog, or NULL if allocation fails
  */
 dog_t *new_dog(char *name, float age, char *owner);
-
-/**
- * dog_t - typedef for struct dog
- */
-typedef struct dog dog_t;
 
 #endif /* DOG_H */
