@@ -3,6 +3,34 @@
 #include "dog.h"
 
 /**
+ * _strdup - duplicates a string using malloc
+ * @str: string to duplicate
+ *
+ * Return: pointer to new string, or NULL if malloc fails
+ */
+char *_strdup(const char *str)
+{
+	char *copy;
+	size_t len, i;
+
+	if (!str)
+		return (NULL);
+
+	len = 0;
+	while (str[len])
+		len++;
+
+	copy = malloc(len + 1); /* +1 for '\0' */
+	if (!copy)
+		return (NULL);
+
+	for (i = 0; i <= len; i++)
+		copy[i] = str[i];
+
+	return (copy);
+}
+
+/**
  * new_dog - creates a new dog
  * @name: name of the dog
  * @age: age of the dog
@@ -22,14 +50,14 @@ dog_t *new_dog(char *name, float age, char *owner)
 	if (!d)
 		return (NULL);
 
-	name_copy = strdup(name);
+	name_copy = _strdup(name);
 	if (!name_copy)
 	{
 		free(d);
 		return (NULL);
 	}
 
-	owner_copy = strdup(owner);
+	owner_copy = _strdup(owner);
 	if (!owner_copy)
 	{
 		free(name_copy);
