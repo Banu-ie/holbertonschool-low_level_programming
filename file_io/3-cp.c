@@ -5,6 +5,12 @@
 
 #define BUF_SIZE 1024
 
+/**
+ * err_exit - prints an error message to stderr and exits with a given code
+ * @code: exit status code (97, 98, 99, 100)
+ * @name: filename related to the error (used for 98 and 99), or NULL
+ * @fd: file descriptor related to the error (used for 100)
+ */
 static void err_exit(int code, const char *name, int fd)
 {
 	if (code == 97)
@@ -18,12 +24,23 @@ static void err_exit(int code, const char *name, int fd)
 	exit(code);
 }
 
+/**
+ * safe_close - closes a file descriptor or exits with code 100 on failure
+ * @fd: file descriptor to close
+ */
 static void safe_close(int fd)
 {
 	if (close(fd) == -1)
 		err_exit(100, NULL, fd);
 }
 
+/**
+ * copy_file - copies content from one file descriptor to another
+ * @fd_from: file descriptor to read from
+ * @fd_to: file descriptor to write to
+ * @from: source filename (for error messages)
+ * @to: destination filename (for error messages)
+ */
 static void copy_file(int fd_from, int fd_to, char *from, char *to)
 {
 	ssize_t r, w;
@@ -47,6 +64,13 @@ static void copy_file(int fd_from, int fd_to, char *from, char *to)
 	}
 }
 
+/**
+ * main - entry point; copies the content of a file to another file
+ * @ac: number of arguments
+ * @av: array of arguments
+ *
+ * Return: 0 on success
+ */
 int main(int ac, char **av)
 {
 	int fd_from, fd_to;
