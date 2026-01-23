@@ -5,57 +5,57 @@
 
 #define BUF_SIZE 1024
 
-/**
- * print_usage - prints usage message and exits with 97
- */
 static void print_usage(void)
 {
 	dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 	exit(97);
 }
 
-/**
- * error_read - prints read error message and exits with 98
- * @file: filename
- */
 static void error_read(const char *file)
 {
 	dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", file);
 	exit(98);
 }
 
-/**
- * error_write - prints write error message and exits with 99
- * @file: filename
- */
 static void error_write(const char *file)
 {
 	dprintf(STDERR_FILENO, "Error: Can't write to %s\n", file);
 	exit(99);
 }
 
-/**
- * error_close - prints close error message and exits with 100
- * @fd: file descriptor
- */
 static void error_close(int fd)
 {
 	dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
 	exit(100);
 }
 
-/**
- * main - copies the content of a file to another file
- * @ac: argument count
- * @av: argument vector
- *
- * Return: 0 on success
- */
+static void copy_file(int fd_from, int fd_to, char *from, char *to)
+{
+	ssize_t r, w;
+	char buf[BUF_SIZE];
+
+	while ((r = read(fd_from, buf, BUF_SIZE)) > 0)
+	{
+		w = write(fd_to, buf, r);
+		if (w == -1 || w != r)
+		{
+			close(fd_from);
+			close(fd_to);
+			error_write(to);
+		}
+	}
+
+	if (r == -1)
+	{
+		close(fd_from);
+		close(fd_to);
+		error_read(from);
+	}
+}
+
 int main(int ac, char **av)
 {
 	int fd_from, fd_to;
-	ssize_t r, w;
-	char buf[BUF_SIZE];
 
 	if (ac != 3)
 		print_usage();
@@ -71,23 +71,7 @@ int main(int ac, char **av)
 		error_write(av[2]);
 	}
 
-	while ((r = read(fd_from, buf, BUF_SIZE)) > 0)
-	{
-		w = write(fd_to, buf, r);
-		if (w == -1 || w != r)
-		{
-			close(fd_from);
-			close(fd_to);
-			error_write(av[2]);
-		}
-	}
-
-	if (r == -1)
-	{
-		close(fd_from);
-		close(fd_to);
-		error_read(av[1]);
-	}
+	copy_file(fd_from, fd_to, av[1], av[2]);
 
 	if (close(fd_from) == -1)
 		error_close(fd_from);
